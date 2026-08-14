@@ -1,0 +1,58 @@
+[
+  {
+    "id":"sprocket",
+    "title":"Sprocket Central — Customer & Sales Intelligence",
+    "category":"CUSTOMER INTELLIGENCE",
+    "description":"Customer segmentation, transaction analysis and actionable insights built around a retail customer dataset.",
+    "stack":["Power BI","Data Analysis","Customer Segmentation"],
+    "image":"https://raw.githubusercontent.com/SohaibMKhan/SohaibMKhan.github.io/main/assets/projects/sprocket.jpg"
+  },
+  {
+    "id":"credit-card",
+    "title":"Credit Card Transaction Analysis",
+    "category":"FINANCIAL ANALYTICS",
+    "description":"Interactive analysis of credit-card spending, customer behavior and transaction patterns.",
+    "stack":["Power BI","SQL","Data Modeling"],
+    "image":"https://raw.githubusercontent.com/SohaibMKhan/SohaibMKhan.github.io/main/assets/projects/credit-card.jpg"
+  },
+  {
+    "id":"covid",
+    "title":"COVID-19 Data Analysis",
+    "category":"GLOBAL HEALTH ANALYTICS",
+    "description":"Worldwide and country-level exploration of cases, deaths and time-based COVID-19 trends.",
+    "stack":["Power BI","Data Visualization","Time Series"],
+    "image":"https://raw.githubusercontent.com/SohaibMKhan/SohaibMKhan.github.io/main/assets/projects/covid.jpg"
+  },
+  {
+    "id":"attrition",
+    "title":"Company Attrition Analytics",
+    "category":"PEOPLE ANALYTICS",
+    "description":"Workforce attrition analysis designed to expose employee patterns and potential retention drivers.",
+    "stack":["Power BI","HR Analytics","Data Visualization"],
+    "image":"https://raw.githubusercontent.com/SohaibMKhan/SohaibMKhan.github.io/main/assets/projects/attrition.jpg"
+  },
+  {
+    "id":"sales",
+    "title":"Data-Driven Sales Analysis",
+    "category":"SALES INTELLIGENCE",
+    "description":"Sales performance, product trends and forecasting-oriented analysis for business decision support.",
+    "stack":["Power BI","Forecasting","Business Intelligence"],
+    "image":"https://raw.githubusercontent.com/SohaibMKhan/SohaibMKhan.github.io/main/assets/projects/data-driven-sales.jpg"
+  },
+  {
+    "id":"google-play",
+    "title":"Google Play Store Apps Analysis",
+    "category":"PRODUCT & APP ANALYTICS",
+    "description":"Exploration of app categories, ratings, installs, reviews and marketplace patterns.",
+    "stack":["Power BI","Data Cleaning","App Analytics"],
+    "image":"https://raw.githubusercontent.com/SohaibMKhan/SohaibMKhan.github.io/main/assets/projects/google-play.jpg"
+  },
+  {
+    "id":"sales-data",
+    "title":"Sales Data Analysis",
+    "category":"COMMERCIAL ANALYTICS",
+    "description":"A focused sales dashboard for understanding orders, performance and commercial trends.",
+    "stack":["Power BI","Excel","Data Analysis"],
+    "image":"https://raw.githubusercontent.com/SohaibMKhan/SohaibMKhan.github.io/main/assets/projects/sales-data.jpg"
+  }
+]
