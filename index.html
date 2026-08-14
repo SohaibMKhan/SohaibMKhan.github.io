@@ -1,104 +1,53 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sohaib — Data Core</title>
 <style>
-:root{--bg:#020409;--cyan:#67f6ff;--violet:#9a72ff;--muted:#8f99a8;--line:rgba(150,220,255,.18)}
-*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:auto}body{margin:0;background:var(--bg);color:#f4f7fb;font-family:Inter,Arial,sans-serif;overflow-x:hidden}canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
-.ui{position:fixed;inset:0;z-index:10;pointer-events:none}.top{position:absolute;top:28px;left:34px;right:34px;display:flex;justify-content:space-between;align-items:center;text-transform:uppercase;letter-spacing:.2em;font-size:10px}.brand{opacity:.9}.status{display:flex;gap:9px;align-items:center}.dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}
-.hero{position:absolute;left:4.5vw;top:39vh;width:min(430px,34vw)}.eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#a9b2bf;margin-bottom:22px}.hero h1{margin:0;font-size:clamp(54px,6.5vw,104px);line-height:.88;letter-spacing:-.065em;font-weight:450}.hero h1 span{display:block}.hero h1 .accent{color:#dce4ee}.hero h1 .accent2{background:linear-gradient(90deg,#effaff 0%,#75f4ff 42%,#a277ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}.sub{margin-top:26px;max-width:390px;color:#a8b0bb;font-size:14px;line-height:1.65}.scrollHint{margin-top:28px;display:flex;align-items:center;gap:11px;color:#65f7ff;font-size:10px;letter-spacing:.22em;text-transform:uppercase}.scrollIcon{width:19px;height:27px;border:1px solid rgba(101,247,255,.75);border-radius:12px;position:relative}.scrollIcon:after{content:'';position:absolute;width:2px;height:6px;background:#65f7ff;left:8px;top:6px;border-radius:2px;animation:drop 1.4s infinite}.scrollLine{width:50px;height:1px;background:linear-gradient(90deg,#65f7ff,transparent)}@keyframes drop{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(8px);opacity:1}}
-.sideNav{position:absolute;right:2.8vw;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:0;width:105px}.navItem{height:84px;position:relative;padding-left:28px;color:#5f6876;font-size:9px;letter-spacing:.22em;text-transform:uppercase}.navItem:before{content:'';position:absolute;left:0;top:0;width:1px;height:84px;background:var(--line)}.navItem:after{content:'';position:absolute;left:-3px;top:0;width:7px;height:7px;border-radius:50%;background:#78818d}.navItem.active{color:#f4f7fb}.navItem.active:after{background:var(--cyan);box-shadow:0 0 12px var(--cyan)}.navItem b{display:block;color:var(--cyan);font-size:9px;margin-bottom:9px;font-weight:500}.navItem span{display:block}
-.social{position:absolute;left:3.3vw;bottom:34px;display:flex;gap:13px}.social a{pointer-events:auto;width:38px;height:38px;border:1px solid rgba(255,255,255,.15);border-radius:50%;display:grid;place-items:center;color:#cbd1d8;text-decoration:none;font-size:11px}.progress{position:absolute;left:3.3vw;right:3.3vw;bottom:17px;height:2px;background:rgba(255,255,255,.1)}.progress i{display:block;width:0;height:100%;background:linear-gradient(90deg,#67f6ff,#8d75ff);box-shadow:0 0 12px rgba(103,246,255,.6)}.progress:before,.progress:after{position:absolute;top:-10px;font:9px monospace;color:#7f8996}.progress:before{content:'0%';left:0}.progress:after{content:'100%';right:0}
-.scrollSpace{height:520vh;position:relative;z-index:1;pointer-events:none}.stageLabel{position:absolute;top:105vh;left:4.5vw;color:rgba(255,255,255,.2);font:9px monospace;letter-spacing:.2em;text-transform:uppercase}.menu{position:absolute;right:34px;top:28px;font-size:22px;opacity:.75;display:none}
-@media(max-width:900px){.hero{left:7vw;top:44vh;width:50vw}.sideNav{display:none}.hero h1{font-size:clamp(48px,9vw,78px)}}@media(max-width:600px){.top{left:20px;right:20px}.hero{left:22px;top:48vh;width:78vw}.sub{font-size:13px}.social{left:22px}.progress{left:22px;right:22px}.menu{display:block}}
+:root{--bg:#020409;--cyan:#65f5ff;--violet:#9874ff;--text:#f4f7fb;--muted:#929baa;--line:rgba(150,220,255,.16)}
+*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:auto}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;overflow-x:hidden}canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+.ui{position:fixed;inset:0;z-index:20;pointer-events:none}.top{position:absolute;top:28px;left:34px;right:34px;display:flex;justify-content:space-between;text-transform:uppercase;letter-spacing:.2em;font-size:10px}.status{display:flex;gap:9px;align-items:center}.dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}
+.hero{position:absolute;left:4.5vw;top:38vh;width:min(430px,34vw)}.eyebrow{font-size:10px;letter-spacing:.3em;color:#a9b2bf;margin-bottom:22px}.hero h1{margin:0;font-size:clamp(54px,6.5vw,104px);line-height:.88;letter-spacing:-.065em;font-weight:450}.hero h1 span{display:block}.hero h1 .a{color:#dce4ee}.hero h1 .b{background:linear-gradient(90deg,#effaff,#70f4ff 42%,#a277ff);-webkit-background-clip:text;background-clip:text;color:transparent}.sub{margin-top:26px;max-width:390px;color:#a8b0bb;font-size:14px;line-height:1.65}.hint{margin-top:28px;display:flex;align-items:center;gap:11px;color:var(--cyan);font-size:10px;letter-spacing:.22em;text-transform:uppercase}.mouse{width:19px;height:27px;border:1px solid rgba(101,247,255,.75);border-radius:12px;position:relative}.mouse:after{content:'';position:absolute;width:2px;height:6px;background:var(--cyan);left:8px;top:6px;border-radius:2px;animation:drop 1.4s infinite}@keyframes drop{50%{transform:translateY(8px);opacity:1}0%,100%{opacity:.35}}
+.side{position:absolute;right:2.8vw;top:50%;transform:translateY(-50%);width:105px}.nav{height:74px;position:relative;padding-left:28px;color:#5f6876;font-size:9px;letter-spacing:.22em;text-transform:uppercase}.nav:before{content:'';position:absolute;left:0;top:0;width:1px;height:74px;background:var(--line)}.nav:after{content:'';position:absolute;left:-3px;top:0;width:7px;height:7px;border-radius:50%;background:#78818d}.nav.active{color:#fff}.nav.active:after{background:var(--cyan);box-shadow:0 0 12px var(--cyan)}.nav b{display:block;color:var(--cyan);font-weight:500;margin-bottom:8px}.nav span{display:block}
+.social{position:absolute;left:3.3vw;bottom:33px;display:flex;gap:12px}.social a{pointer-events:auto;width:38px;height:38px;border:1px solid rgba(255,255,255,.15);border-radius:50%;display:grid;place-items:center;color:#cbd1d8;text-decoration:none;font-size:11px}.progress{position:absolute;left:3.3vw;right:3.3vw;bottom:17px;height:2px;background:rgba(255,255,255,.1)}.progress i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--cyan),var(--violet));box-shadow:0 0 12px rgba(103,246,255,.6)}.progress:before,.progress:after{position:absolute;top:-10px;font:9px monospace;color:#7f8996}.progress:before{content:'0%';left:0}.progress:after{content:'100%';right:0}
+.scrollSpace{height:540vh;position:relative;z-index:1}.label{position:absolute;top:104vh;left:4.5vw;color:rgba(255,255,255,.2);font:9px monospace;letter-spacing:.2em}
+.projects{position:absolute;top:285vh;left:7vw;right:7vw;min-height:130vh;z-index:2;pointer-events:auto}.projectsHead{display:flex;justify-content:space-between;align-items:end;margin-bottom:34px}.projectsHead small{font:10px monospace;letter-spacing:.2em;color:var(--cyan)}.projectsHead h2{margin:8px 0 0;font-size:clamp(38px,5vw,72px);font-weight:400;letter-spacing:-.05em}.projectsHead p{max-width:340px;color:var(--muted);font-size:13px;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{position:relative;min-height:250px;padding:25px;border:1px solid rgba(140,220,255,.12);background:linear-gradient(135deg,rgba(10,19,29,.72),rgba(5,7,14,.42));overflow:hidden;transition:.45s ease}.card:hover{transform:translateY(-7px);border-color:rgba(100,245,255,.42);box-shadow:0 18px 60px rgba(40,160,190,.12)}.card:before{content:'';position:absolute;inset:-40%;background:radial-gradient(circle at 75% 25%,rgba(100,245,255,.12),transparent 28%),radial-gradient(circle at 35% 70%,rgba(150,100,255,.08),transparent 30%)}.num{position:relative;font:10px monospace;color:var(--cyan);letter-spacing:.18em}.card h3{position:relative;max-width:430px;margin:28px 0 12px;font-size:25px;line-height:1.02;font-weight:450;letter-spacing:-.035em}.card p{position:relative;max-width:470px;color:#8994a4;font-size:12px;line-height:1.55}.tags{position:absolute;left:25px;bottom:23px;display:flex;gap:7px;flex-wrap:wrap}.tag{font:8px monospace;letter-spacing:.08em;color:#aab5c4;border:1px solid rgba(255,255,255,.1);padding:6px 8px}.mini{position:absolute;right:25px;top:25px;width:105px;height:74px;opacity:.7}.mini span{position:absolute;bottom:0;width:7px;background:linear-gradient(#66f7ff,#716cff);border-radius:2px 2px 0 0}.mini span:nth-child(1){height:30%;left:5%}.mini span:nth-child(2){height:55%;left:20%}.mini span:nth-child(3){height:42%;left:35%}.mini span:nth-child(4){height:80%;left:50%}.mini span:nth-child(5){height:63%;left:65%}.mini span:nth-child(6){height:92%;left:80%}
+@media(max-width:900px){.hero{left:7vw;top:43vh;width:50vw}.side{display:none}.grid{grid-template-columns:1fr}.projects{top:275vh}}@media(max-width:600px){.top{left:20px;right:20px}.hero{left:22px;top:45vh;width:78vw}.sub{font-size:13px}.social{left:22px}.progress{left:22px;right:22px}.projects{left:22px;right:22px}.projectsHead{display:block}.projectsHead p{margin-top:18px}.card{min-height:270px}}
 </style>
 </head>
 <body>
 <canvas id="webgl"></canvas>
 <div class="ui">
-  <div class="top"><div class="brand">SOHAIB / DATA CORE</div><div class="status"><i class="dot"></i>SYSTEM ONLINE</div></div>
-  <div class="hero"><div class="eyebrow">Data · Intelligence · Technology</div><h1><span>Build.</span><span class="accent">Connect.</span><span class="accent2">Transform.</span></h1><div class="sub">An interactive portfolio where data, intelligence and software become one living system.</div><div class="scrollHint"><span class="scrollIcon"></span><span>Scroll to explore</span><span class="scrollLine"></span></div></div>
-  <div class="sideNav"><div class="navItem active"><b>01</b><span>Home</span></div><div class="navItem"><b>02</b><span>About</span></div><div class="navItem"><b>03</b><span>Work</span></div><div class="navItem"><b>04</b><span>Skills</span></div><div class="navItem"><b>05</b><span>Projects</span></div><div class="navItem"><b>06</b><span>Contact</span></div></div>
-  <div class="social"><a href="https://www.linkedin.com" target="_blank">in</a><a href="https://github.com/SohaibMKhan" target="_blank">◉</a><a href="mailto:hello@sohaibmkhan.com">✉</a></div>
-  <div class="progress"><i id="bar"></i></div>
-</div>
-<div class="scrollSpace"><div class="stageLabel">01 — CORE FORMATION</div></div>
-
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"}}</script>
+<div class="top"><div>SOHAIB / DATA CORE</div><div class="status"><i class="dot"></i>SYSTEM ONLINE</div></div>
+<div class="hero"><div class="eyebrow">Data · Intelligence · Technology</div><h1><span>Build.</span><span class="a">Connect.</span><span class="b">Transform.</span></h1><div class="sub">An interactive portfolio where data, intelligence and software become one living system.</div><div class="hint"><span class="mouse"></span>Scroll to explore</div></div>
+<div class="side"><div class="nav active"><b>01</b><span>Home</span></div><div class="nav"><b>02</b><span>About</span></div><div class="nav"><b>03</b><span>Work</span></div><div class="nav"><b>04</b><span>Skills</span></div><div class="nav"><b>05</b><span>Projects</span></div><div class="nav"><b>06</b><span>Contact</span></div></div>
+<div class="social"><a href="https://www.linkedin.com" target="_blank">in</a><a href="https://github.com/SohaibMKhan" target="_blank">◉</a><a href="mailto:hello@sohaibmkhan.com">✉</a></div><div class="progress"><i id="bar"></i></div></div>
+<div class="scrollSpace"><div class="label">01 — CORE FORMATION / 02 — INTELLIGENCE CONSTELLATION</div><section class="projects"><div class="projectsHead"><div><small>03 — SELECTED POWER BI WORK</small><h2>Data, turned into systems.</h2></div><p>Seven dashboard projects are now the first constellation around the Data Core. Tableau and Pixxy will become additional worlds later.</p></div><div class="grid" id="grid"></div></section></div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js"}}</script>
 <script type="module">
 import * as THREE from 'three';
-
-const canvas=document.getElementById('webgl');
-const scene=new THREE.Scene();
-scene.background=new THREE.Color(0x020409);
-scene.fog=new THREE.FogExp2(0x020409,.045);
-const camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.1,120);
-camera.position.set(0,0,12);
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
-renderer.setPixelRatio(Math.min(devicePixelRatio,1.8));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;
-
-const root=new THREE.Group();root.position.set(2.0,.1,0);scene.add(root);
-const core=new THREE.Group();root.add(core);
-
-// Central volumetric-looking energy core.
-const coreGeo=new THREE.IcosahedronGeometry(1.35,4);
-const coreMat=new THREE.MeshBasicMaterial({color:0x6cf7ff,wireframe:true,transparent:true,opacity:.23});
-const coreMesh=new THREE.Mesh(coreGeo,coreMat);core.add(coreMesh);
-const innerGeo=new THREE.IcosahedronGeometry(.78,3);
-const innerMat=new THREE.MeshBasicMaterial({color:0xb7ffff,wireframe:true,transparent:true,opacity:.5});
-const innerMesh=new THREE.Mesh(innerGeo,innerMat);core.add(innerMesh);
-const nucleusMat=new THREE.MeshBasicMaterial({color:0xdfffff});
-const nucleus=new THREE.Mesh(new THREE.SphereGeometry(.22,32,32),nucleusMat);core.add(nucleus);
-
-// Soft glow sprite without external texture.
-const glowCanvas=document.createElement('canvas');glowCanvas.width=256;glowCanvas.height=256;const gc=glowCanvas.getContext('2d');const grd=gc.createRadialGradient(128,128,0,128,128,128);grd.addColorStop(0,'rgba(190,255,255,1)');grd.addColorStop(.12,'rgba(90,245,255,.7)');grd.addColorStop(.4,'rgba(70,150,255,.18)');grd.addColorStop(1,'rgba(0,0,0,0)');gc.fillStyle=grd;gc.fillRect(0,0,256,256);
-const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(glowCanvas),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));glow.scale.set(5.5,5.5,1);core.add(glow);
-
-// Orbital rings with different tilts.
-const rings=[];for(let i=0;i<7;i++){const g=new THREE.TorusGeometry(1.65+i*.34,.008+i*.001,8,180);const m=new THREE.MeshBasicMaterial({color:i%2?0x9b72ff:0x5cf7ff,transparent:true,opacity:.34-i*.025,blending:THREE.AdditiveBlending});const r=new THREE.Mesh(g,m);r.rotation.set(i*.42,i*.28,i*.63);core.add(r);rings.push(r)}
-
-// Nodes attached to rings.
-const orbitNodes=[];for(let i=0;i<28;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.035+(i%4)*.012,12,12),new THREE.MeshBasicMaterial({color:i%3===0?0xb083ff:0x67f6ff}));m.userData={ring:i%7,phase:i/28*Math.PI*2,speed:.35+(i%5)*.07};core.add(m);orbitNodes.push(m)}
-
-// Large background network.
-const N=520;const positions=new Float32Array(N*3);const colors=new Float32Array(N*3);const particleData=[];
-for(let i=0;i<N;i++){const r=4+Math.random()*7,a=Math.random()*Math.PI*2,b=Math.acos(2*Math.random()-1);const x=r*Math.sin(b)*Math.cos(a),y=r*Math.cos(b)*.8,z=r*Math.sin(b)*Math.sin(a);positions[i*3]=x;positions[i*3+1]=y;positions[i*3+2]=z;const c=Math.random()>.82?new THREE.Color(0x9a72ff):new THREE.Color(0x55e9ff);colors[i*3]=c.r;colors[i*3+1]=c.g;colors[i*3+2]=c.b;particleData.push({x,y,z,phase:Math.random()*6.28,size:.025+Math.random()*.055})}
-const pGeo=new THREE.BufferGeometry();pGeo.setAttribute('position',new THREE.BufferAttribute(positions,3));pGeo.setAttribute('color',new THREE.BufferAttribute(colors,3));const pMat=new THREE.PointsMaterial({size:.045,vertexColors:true,transparent:true,opacity:.78,depthWrite:false,blending:THREE.AdditiveBlending});const particles=new THREE.Points(pGeo,pMat);scene.add(particles);
-
-// Sparse network lines based on deterministic near-neighbor pairs.
-const linePositions=[];const pairs=[];for(let i=0;i<N;i+=3){let best=-1,bd=1e9;for(let j=0;j<N;j+=5){if(i===j)continue;const dx=positions[i*3]-positions[j*3],dy=positions[i*3+1]-positions[j*3+1],dz=positions[i*3+2]-positions[j*3+2],d=dx*dx+dy*dy+dz*dz;if(d<bd&&d<4){bd=d;best=j}}if(best>=0){pairs.push([i,best]);linePositions.push(positions[i*3],positions[i*3+1],positions[i*3+2],positions[best*3],positions[best*3+1],positions[best*3+2])}}
-const lGeo=new THREE.BufferGeometry();lGeo.setAttribute('position',new THREE.Float32BufferAttribute(linePositions,3));const lMat=new THREE.LineBasicMaterial({color:0x328aa0,transparent:true,opacity:.12,blending:THREE.AdditiveBlending});const network=new THREE.LineSegments(lGeo,lMat);scene.add(network);
-
-const mouse=new THREE.Vector2(.5,.5),smouse=new THREE.Vector2(.5,.5);let scrollTarget=0,scroll=0,time=0;
-addEventListener('pointermove',e=>{mouse.x=e.clientX/innerWidth;mouse.y=e.clientY/innerHeight});
-addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-innerHeight;scrollTarget=max?scrollY/max:0;document.getElementById('bar').style.width=(scrollTarget*100)+'%';updateNav(scrollTarget)},{passive:true});
-function updateNav(s){const items=document.querySelectorAll('.navItem');const idx=Math.min(5,Math.floor(s*6));items.forEach((el,i)=>el.classList.toggle('active',i===idx))}
-
-function animate(){requestAnimationFrame(animate);time+=.008;scroll=THREE.MathUtils.lerp(scroll,scrollTarget,.055);smouse.lerp(mouse,.045);
-  // Scroll choreography: the network progressively folds into the core, then opens again into a portal-like structure.
-  const formation=THREE.MathUtils.smoothstep(scroll,0,.46);
-  const expansion=THREE.MathUtils.smoothstep(scroll,.58,1);
-  const coreScale=1+formation*.18+expansion*.55;
-  core.scale.setScalar(coreScale);
-  core.rotation.y=time*.18+scroll*1.5;core.rotation.x=Math.sin(time*.5)*.08+scroll*.75;
-  coreMesh.rotation.x=time*.31;coreMesh.rotation.y=-time*.22;innerMesh.rotation.x=-time*.2;innerMesh.rotation.z=time*.28;
-  glow.scale.setScalar(5.5+formation*1.5+expansion*3);
-  nucleus.scale.setScalar(1+Math.sin(time*3.2)*.12+scroll*.35);
-  rings.forEach((r,i)=>{r.rotation.z+=.0008*(i%2?1:-1);r.rotation.x+=.00035*(i+1);r.material.opacity=.24+formation*.12+expansion*.2});
-  orbitNodes.forEach((n,i)=>{const ring=i%7,rad=1.65+ring*.34,ang=time*n.userData.speed+n.userData.phase+scroll*(ring%2?1:-1)*2.5;n.position.set(Math.cos(ang)*rad,Math.sin(ang)*rad*.16,Math.sin(ang)*rad*.88);n.position.applyAxisAngle(new THREE.Vector3(1,0,0),ring*.42);n.scale.setScalar(1+scroll*.8)});
-
-  // Background system responds to scroll and cursor.
-  const pos=pGeo.attributes.position.array;
-  for(let i=0;i<N;i++){const d=particleData[i];const targetX=d.x*(1-formation*.72),targetY=d.y*(1-formation*.72),targetZ=d.z*(1-formation*.72);const cursorX=(smouse.x-.5)*10,cursorY=(.5-smouse.y)*6;const dx=targetX-cursorX,dy=targetY-cursorY,dist=Math.hypot(dx,dy);const repel=Math.max(0,1-dist/2.6)*.22;pos[i*3]=targetX+dx/(dist||1)*repel+Math.sin(time+d.phase)*.025;pos[i*3+1]=targetY+dy/(dist||1)*repel+Math.cos(time+d.phase)*.025;pos[i*3+2]=targetZ+Math.sin(time*.5+d.phase)*.03}
-  pGeo.attributes.position.needsUpdate=true;particles.rotation.y=time*.018+scroll*.9;particles.rotation.x=Math.sin(time*.22)*.05+scroll*.35;network.rotation.copy(particles.rotation);network.material.opacity=.08+formation*.12+expansion*.18;
-  // Camera parallax from cursor.
-  camera.position.x=THREE.MathUtils.lerp(camera.position.x,(smouse.x-.5)*1.15,.025);camera.position.y=THREE.MathUtils.lerp(camera.position.y,(.5-smouse.y)*.72,.025);camera.position.z=THREE.MathUtils.lerp(camera.position.z,12-scroll*2.2,.035);camera.lookAt(root.position.x,root.position.y,0);
-  renderer.render(scene,camera);
-}
-animate();
-addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.8))});
-</script>
-</body>
-</html>
+const canvas=document.getElementById('webgl'),scene=new THREE.Scene();scene.background=new THREE.Color(0x020409);scene.fog=new THREE.FogExp2(0x020409,.035);
+const camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.1,100);camera.position.set(0,0,11.5);
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.8));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;
+const root=new THREE.Group();root.position.set(2.05,.05,0);scene.add(root);const core=new THREE.Group();root.add(core);
+// Polished dimensional core: solid glass-like shell + inner lattice + energy nucleus.
+const shell=new THREE.Mesh(new THREE.IcosahedronGeometry(1.55,4),new THREE.MeshPhysicalMaterial({color:0x173844,emissive:0x062d3a,emissiveIntensity:2,metalness:.25,roughness:.12,transmission:.2,transparent:true,opacity:.36,wireframe:false,side:THREE.DoubleSide}));core.add(shell);
+const shellWire=new THREE.Mesh(new THREE.IcosahedronGeometry(1.58,3),new THREE.MeshBasicMaterial({color:0x66f6ff,wireframe:true,transparent:true,opacity:.3,blending:THREE.AdditiveBlending}));core.add(shellWire);
+const inner=new THREE.Mesh(new THREE.IcosahedronGeometry(.9,4),new THREE.MeshBasicMaterial({color:0x8deeff,wireframe:true,transparent:true,opacity:.52,blending:THREE.AdditiveBlending}));core.add(inner);
+const nucleus=new THREE.Mesh(new THREE.SphereGeometry(.23,40,40),new THREE.MeshBasicMaterial({color:0xf4ffff}));core.add(nucleus);
+const light=new THREE.PointLight(0x69f7ff,18,8);core.add(light);const violet=new THREE.PointLight(0x9874ff,10,7);violet.position.set(1.2,.7,.8);core.add(violet);
+const gc=document.createElement('canvas');gc.width=256;gc.height=256;const gctx=gc.getContext('2d'),gg=gctx.createRadialGradient(128,128,0,128,128,128);gg.addColorStop(0,'rgba(220,255,255,1)');gg.addColorStop(.1,'rgba(80,245,255,.75)');gg.addColorStop(.38,'rgba(100,100,255,.18)');gg.addColorStop(1,'rgba(0,0,0,0)');gctx.fillStyle=gg;gctx.fillRect(0,0,256,256);const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(gc),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));glow.scale.set(5.8,5.8,1);core.add(glow);
+const rings=[];for(let i=0;i<8;i++){const r=new THREE.Mesh(new THREE.TorusGeometry(1.85+i*.3,.009+i*.001,8,180),new THREE.MeshBasicMaterial({color:i%2?0x9874ff:0x65f5ff,transparent:true,opacity:.25,blending:THREE.AdditiveBlending}));r.rotation.set(i*.36,i*.23,i*.7);core.add(r);rings.push(r)}
+const orbit=[];for(let i=0;i<34;i++){const n=new THREE.Mesh(new THREE.SphereGeometry(.035+(i%4)*.012,12,12),new THREE.MeshBasicMaterial({color:i%3===0?0xb18aff:0x6af6ff}));n.userData={phase:i/34*Math.PI*2,ring:i%8,speed:.25+(i%5)*.045};core.add(n);orbit.push(n)}
+const N=620,pos=new Float32Array(N*3),col=new Float32Array(N*3),data=[];for(let i=0;i<N;i++){const r=4.5+Math.random()*7,a=Math.random()*Math.PI*2,b=Math.acos(2*Math.random()-1);const x=r*Math.sin(b)*Math.cos(a),y=r*Math.cos(b)*.8,z=r*Math.sin(b)*Math.sin(a);pos[i*3]=x;pos[i*3+1]=y;pos[i*3+2]=z;const c=Math.random()>.82?new THREE.Color(0x9874ff):new THREE.Color(0x52eaff);col[i*3]=c.r;col[i*3+1]=c.g;col[i*3+2]=c.b;data.push({x,y,z,p:Math.random()*6.28})}
+const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pos,3));pg.setAttribute('color',new THREE.BufferAttribute(col,3));const particles=new THREE.Points(pg,new THREE.PointsMaterial({size:.045,vertexColors:true,transparent:true,opacity:.8,depthWrite:false,blending:THREE.AdditiveBlending}));scene.add(particles);
+const lp=[];for(let i=0;i<N;i+=3){let best=-1,bd=1e9;for(let j=0;j<N;j+=5){if(i===j)continue;const dx=pos[i*3]-pos[j*3],dy=pos[i*3+1]-pos[j*3+1],dz=pos[i*3+2]-pos[j*3+2],d=dx*dx+dy*dy+dz*dz;if(d<bd&&d<3.8){bd=d;best=j}}if(best>=0)lp.push(pos[i*3],pos[i*3+1],pos[i*3+2],pos[best*3],pos[best*3+1],pos[best*3+2])}const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(lp,3));const network=new THREE.LineSegments(lg,new THREE.LineBasicMaterial({color:0x3e9bad,transparent:true,opacity:.11,blending:THREE.AdditiveBlending}));scene.add(network);
+const mouse=new THREE.Vector2(.5,.5),sm=new THREE.Vector2(.5,.5);let target=0,s=0,t=0;addEventListener('pointermove',e=>{mouse.x=e.clientX/innerWidth;mouse.y=e.clientY/innerHeight});addEventListener('scroll',()=>{const m=document.documentElement.scrollHeight-innerHeight;target=m?scrollY/m:0;document.getElementById('bar').style.width=target*100+'%';document.querySelectorAll('.nav').forEach((n,i)=>n.classList.toggle('active',i===Math.min(5,Math.floor(target*6))))},{passive:true});
+function smoothstep(x,a,b){x=Math.max(0,Math.min(1,(x-a)/(b-a)));return x*x*(3-2*x)}
+function animate(){requestAnimationFrame(animate);t+=.008;s=THREE.MathUtils.lerp(s,target,.055);sm.lerp(mouse,.045);
+const fold=smoothstep(s,.03,.40),sync=smoothstep(s,.25,.58),open=smoothstep(s,.55,.92);core.scale.setScalar(1+fold*.12+open*.48);core.rotation.y=t*.16+s*1.8;core.rotation.x=Math.sin(t*.45)*.06+s*.7;shell.rotation.y=-t*.18;shell.rotation.x=t*.12;shellWire.rotation.z=t*.22;inner.rotation.x=-t*.3;inner.rotation.z=t*.2;nucleus.scale.setScalar(1+Math.sin(t*3)*.1+s*.45);glow.scale.setScalar(5.8+fold*1.2+open*2.6);light.intensity=18+fold*12+open*24;violet.intensity=10+open*18;
+rings.forEach((r,i)=>{r.rotation.z+=.0007*(i%2?1:-1);r.rotation.x+=.00025*(i+1);r.material.opacity=.22+fold*.13+open*.24});orbit.forEach((n,i)=>{const k=i%8,rad=1.85+k*.3,a=t*n.userData.speed+n.userData.phase+s*(k%2?2.4:-2.1);n.position.set(Math.cos(a)*rad,Math.sin(a)*rad*.2,Math.sin(a)*rad*.9);n.position.applyAxisAngle(new THREE.Vector3(1,0,0),k*.36);n.scale.setScalar(1+s*.9)});
+const p=pg.attributes.position.array;for(let i=0;i<N;i++){const d=data[i],scale=1-fold*.78+open*.25,tx=d.x*scale,ty=d.y*scale,tz=d.z*scale,cx=(sm.x-.5)*9,cy=(.5-sm.y)*6,dx=tx-cx,dy=ty-cy,dist=Math.hypot(dx,dy),push=Math.max(0,1-dist/2.8)*.24;p[i*3]=tx+dx/(dist||1)*push+Math.sin(t+d.p)*.025;p[i*3+1]=ty+dy/(dist||1)*push+Math.cos(t+d.p)*.025;p[i*3+2]=tz+Math.sin(t*.5+d.p)*.03}pg.attributes.position.needsUpdate=true;particles.rotation.y=t*.018+s*.9;particles.rotation.x=Math.sin(t*.2)*.05+s*.3;network.rotation.copy(particles.rotation);network.material.opacity=.08+fold*.13+sync*.12+open*.18;
+camera.position.x=THREE.MathUtils.lerp(camera.position.x,(sm.x-.5)*1.25,.025);camera.position.y=THREE.MathUtils.lerp(camera.position.y,(.5-sm.y)*.78,.025);camera.position.z=THREE.MathUtils.lerp(camera.position.z,11.5-s*2.1,.035);camera.lookAt(root.position.x,root.position.y,0);renderer.render(scene,camera)}animate();addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.8))});
+const projects=[['01','Sprocket Central — Customer & Sales Intelligence','Customer intelligence','Power BI · Segmentation · Analysis'],['02','Credit Card Transaction Analysis','Financial analytics','Power BI · SQL · Data Modeling'],['03','COVID-19 Data Analysis','Global health analytics','Power BI · Time Series · Visualization'],['04','Company Attrition Analytics','People analytics','Power BI · HR Analytics · Insights'],['05','Data-Driven Sales Analysis','Sales intelligence','Power BI · Forecasting · BI'],['06','Google Play Store Apps Analysis','Product & app analytics','Power BI · Data Cleaning · App Analytics'],['07','Sales Data Analysis','Commercial analytics','Power BI · Excel · Data Analysis']];const grid=document.getElementById('grid');grid.innerHTML=projects.map(p=>`<article class="card"><div class="mini"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="num">${p[0]} / ${p[2].toUpperCase()}</div><h3>${p[1]}</h3><p>Selected Power BI portfolio work — structured to become an interactive node in the portfolio constellation.</p><div class="tags">${p[3].split(' · ').map(x=>`<i class="tag">${x}</i>`).join('')}</div></article>`).join('');
+</script></body></html>
