@@ -1,0 +1,1 @@
+Next build: polish the Data Core into a more dimensional glass/energy object and use the seven Power BI projects as the first portfolio constellation. Tableau and Pixxy remain future modules.
