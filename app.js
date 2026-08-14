@@ -1,135 +1,48 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
 
-const categories = [
-  {
-    id:'data', name:'DATA ANALYSIS', kicker:'05A / DATA ANALYSIS', color:0x67f4ff,
-    projects:[
-      ['Sprocket Central — Customer & Sales Intelligence','01','Customer segmentation, sales performance and insight discovery.','Power BI · Segmentation · Analysis'],
-      ['Credit Card Transaction Analysis','02','Transaction patterns, customer behavior and financial performance.','Power BI · SQL · Data Modeling'],
-      ['COVID-19 Data Analysis','03','A visual exploration of global COVID-19 trends and impact.','Power BI · Trends · Visualization'],
-      ['Company Attrition Analytics','04','Workforce attrition patterns and people-focused business insights.','Power BI · HR Analytics · Insights'],
-      ['Data-Driven Sales Analysis','05','Sales performance analysis focused on commercial decision-making.','Power BI · Forecasting · KPI'],
-      ['Google Play Store Apps Analysis','06','App ecosystem, category and performance analysis.','Power BI · Data Cleaning · App Analytics'],
-      ['Sales Data Analysis','07','Performance trends and actionable business metrics.','Power BI · Excel · Data Analysis']
-    ]
-  },
-  {id:'ai',name:'AI / INTELLIGENCE',kicker:'05B / AI / INTELLIGENCE',color:0xa789ff,projects:[]},
-  {id:'software',name:'SOFTWARE DEVELOPMENT',kicker:'05C / SOFTWARE DEVELOPMENT',color:0x67f4ff,projects:[]},
-  {id:'automation',name:'AUTOMATION',kicker:'05D / AUTOMATION',color:0xa789ff,projects:[]}
+const categories=[
+{id:'data',name:'DATA ANALYSIS',kicker:'05A / DATA ANALYSIS',color:0x67f4ff,projects:[
+['Sprocket Central — Customer & Sales Intelligence','01','Customer segmentation, sales performance and insight discovery.','Power BI · Segmentation · Analysis'],
+['Credit Card Transaction Analysis','02','Transaction patterns, customer behavior and financial performance.','Power BI · SQL · Data Modeling'],
+['COVID-19 Data Analysis','03','A visual exploration of global COVID-19 trends and impact.','Power BI · Trends · Visualization'],
+['Company Attrition Analytics','04','Workforce attrition patterns and people-focused business insights.','Power BI · HR Analytics · Insights'],
+['Data-Driven Sales Analysis','05','Sales performance analysis focused on commercial decision-making.','Power BI · Forecasting · KPI'],
+['Google Play Store Apps Analysis','06','App ecosystem, category and performance analysis.','Power BI · Data Cleaning · App Analytics'],
+['Sales Data Analysis','07','Performance trends and actionable business metrics.','Power BI · Excel · Data Analysis']]},
+{id:'ai',name:'AI / INTELLIGENCE',kicker:'05B / AI / INTELLIGENCE',color:0xa789ff,projects:[]},
+{id:'software',name:'SOFTWARE DEVELOPMENT',kicker:'05C / SOFTWARE DEVELOPMENT',color:0x67f4ff,projects:[]},
+{id:'automation',name:'AUTOMATION',kicker:'05D / AUTOMATION',color:0xa789ff,projects:[]}
 ];
-
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
-const smooth=t=>t*t*(3-2*t);
-const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(35,innerWidth/innerHeight,.1,100); camera.position.set(0,0,10.8);
-const renderer=new THREE.WebGLRenderer({canvas:$('#webgl'),antialias:true,alpha:false,powerPreference:'high-performance'});
-renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.setSize(innerWidth,innerHeight); renderer.outputColorSpace=THREE.SRGBColorSpace; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.28; scene.background=new THREE.Color(0x01040a);
-
-scene.add(new THREE.AmbientLight(0x526476,.38));
-const key=new THREE.DirectionalLight(0xd9f8ff,4.2); key.position.set(4,5,7); scene.add(key);
-const cyanLight=new THREE.PointLight(0x4fefff,22,10); cyanLight.position.set(2,2,3); scene.add(cyanLight);
-const violetLight=new THREE.PointLight(0x8d6cff,17,9); violetLight.position.set(-2,-2,2); scene.add(violetLight);
-const coreLight=new THREE.PointLight(0x8dfaff,16,5); coreLight.position.set(0,0,1.5); scene.add(coreLight);
-
-const root=new THREE.Group(); scene.add(root); const core=new THREE.Group(); root.add(core);
-
-// ENERGY CORE: a dark dimensional body with an emissive internal nucleus and real volumetric-looking particle energy.
-const outer=new THREE.Mesh(new THREE.SphereGeometry(1.38,64,64),new THREE.MeshPhysicalMaterial({color:0x07141c,metalness:.62,roughness:.18,clearcoat:1,clearcoatRoughness:.06,emissive:0x052b39,emissiveIntensity:.55,transparent:true,opacity:.82})); core.add(outer);
-const shell=new THREE.Mesh(new THREE.IcosahedronGeometry(1.22,3),new THREE.MeshPhysicalMaterial({color:0x0b2632,metalness:.28,roughness:.2,clearcoat:1,emissive:0x064b5b,emissiveIntensity:.32,transparent:true,opacity:.42,side:THREE.DoubleSide})); core.add(shell);
-const inner=new THREE.Mesh(new THREE.IcosahedronGeometry(.78,2),new THREE.MeshPhysicalMaterial({color:0x17153a,metalness:.55,roughness:.1,clearcoat:1,emissive:0x4b1e9a,emissiveIntensity:1.05,transparent:true,opacity:.68})); core.add(inner);
-const cage=new THREE.Mesh(new THREE.IcosahedronGeometry(1.43,2),new THREE.MeshBasicMaterial({color:0x69efff,wireframe:true,transparent:true,opacity:.045,blending:THREE.AdditiveBlending,depthWrite:false})); core.add(cage);
-const nucleus=new THREE.Mesh(new THREE.SphereGeometry(.13,32,32),new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xd9ffff,emissiveIntensity:15,roughness:.02,metalness:.02})); core.add(nucleus);
-const glow=new THREE.Mesh(new THREE.SphereGeometry(.52,32,32),new THREE.MeshBasicMaterial({color:0x42eaff,transparent:true,opacity:.045,blending:THREE.AdditiveBlending,depthWrite:false})); core.add(glow);
-const halo=new THREE.Mesh(new THREE.SphereGeometry(.95,32,32),new THREE.MeshBasicMaterial({color:0x684fff,transparent:true,opacity:.012,blending:THREE.AdditiveBlending,depthWrite:false})); core.add(halo);
-
-// Moving streams: these are particles following orbital curves, not lines.
-const streams=[];
-for(let s=0;s<5;s++){
-  const group=new THREE.Group(); core.add(group); const particles=[];
-  const count=90;
-  for(let i=0;i<count;i++){
-    const m=new THREE.Mesh(new THREE.SphereGeometry(.008+(i%4)*.002,7,7),new THREE.MeshBasicMaterial({color:i%7===0?0xa789ff:0x61efff,transparent:true,opacity:.22+.55*(i%5)/5,blending:THREE.AdditiveBlending,depthWrite:false}));
-    m.userData={u:i/count,phase:Math.random()*Math.PI*2}; group.add(m); particles.push(m);
-  }
-  streams.push({group,particles,tilt:s*Math.PI/5,phase:s*.9});
-}
-
-const closeParticles=[];
-for(let i=0;i<44;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.009+(i%3)*.004,7,7),new THREE.MeshBasicMaterial({color:i%5===0?0xa789ff:0x6df4ff,transparent:true,opacity:.6,blending:THREE.AdditiveBlending,depthWrite:false})); core.add(m); closeParticles.push(m);}
-
-const field=new THREE.Group(); scene.add(field);
-for(let i=0;i<240;i++){const p=new THREE.Mesh(new THREE.SphereGeometry(.004+(i%4)*.0015,6,6),new THREE.MeshBasicMaterial({color:i%11===0?0x8d75ff:0x52dce8,transparent:true,opacity:.06+(i%5)*.015})); p.position.set((Math.random()-.5)*16,(Math.random()-.5)*9,(Math.random()-.5)*9); p.userData={phase:Math.random()*6.28}; field.add(p);}
-
-const projectNodes=[];
-const nodeGroup=new THREE.Group(); scene.add(nodeGroup);
-const positions=[[-3.0,1.55,.1],[3.0,1.15,-.1],[-3.1,-.15,.1],[3.05,-.35,.1],[-2.55,-1.7,-.1],[2.55,-1.65,.1],[0,-2.55,-.1]];
-const data=categories[0];
-for(let i=0;i<7;i++){
-  const g=new THREE.Group(); g.visible=false; nodeGroup.add(g);
-  const orb=new THREE.Mesh(new THREE.IcosahedronGeometry(.13,2),new THREE.MeshPhysicalMaterial({color:0x0e7885,emissive:0x31e9f4,emissiveIntensity:5,metalness:.5,roughness:.1,clearcoat:1,transparent:true,opacity:0})); g.add(orb);
-  const ring=new THREE.Mesh(new THREE.TorusGeometry(.23,.006,7,80),new THREE.MeshBasicMaterial({color:0x63efff,transparent:true,opacity:0,blending:THREE.AdditiveBlending})); g.add(ring);
-  const h=new THREE.Mesh(new THREE.SphereGeometry(.34,20,20),new THREE.MeshBasicMaterial({color:0x63efff,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false})); g.add(h);
-  const label=document.createElement('div'); label.className='project-label'; const p=data.projects[i]; label.innerHTML=`<div class="k">${p[1]} / DATA ANALYSIS</div><h3>${p[0]}</h3><div class="d">${p[2]}</div><div class="s">${p[3]}</div>`; $('#labels').appendChild(label);
-  projectNodes.push({g,orb,ring,h,label,target:new THREE.Vector3(...positions[i]),index:i});
-}
-
-let pointerX=0,pointerY=0,sx=0,sy=0,targetScroll=0,scroll=0;
-addEventListener('pointermove',e=>{pointerX=(e.clientX/innerWidth-.5)*2;pointerY=(e.clientY/innerHeight-.5)*2});
-addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-innerHeight;targetScroll=max?scrollY/max:0},{passive:true});
-const sections=['home','about','work','skills','projects','contact'];
-$$('.nav').forEach(n=>n.addEventListener('click',()=>{const i=sections.indexOf(n.dataset.section); window.scrollTo({top:(document.documentElement.scrollHeight-innerHeight)*(i/5),behavior:'smooth'})}));
-
-function projectState(){
-  const p=clamp((scroll-.64)/.29); // project master range
-  const catCount=categories.length;
-  const catIndex=Math.min(catCount-1,Math.floor(p*catCount));
-  const catProgress=p*catCount-catIndex;
-  return {p,catIndex,catProgress};
-}
-function placeLabel(n,amount){
-  const v=n.g.position.clone().project(camera); const x=(v.x*.5+.5)*innerWidth, y=(-v.y*.5+.5)*innerHeight; const a=clamp(amount);
-  n.label.style.left=clamp(x+34,22,innerWidth-430)+'px'; n.label.style.top=clamp(y-38,30,innerHeight-190)+'px'; n.label.style.opacity=String(a); n.label.style.transform=`translate3d(${(1-a)*22}px,${(1-a)*8}px,0)`; n.label.style.clipPath=`inset(0 ${100-a*100}% 0 0)`;
-}
-function setSection(section){
-  $$('.nav').forEach(n=>n.classList.toggle('active',n.dataset.section===section));
-  ['about','work','skills'].forEach(n=>$('#'+n).classList.toggle('active',section===n)); $('#hero').classList.toggle('gone',section!=='home');
-}
-
-function frame(t){
-  requestAnimationFrame(frame);
-  scroll+=(targetScroll-scroll)*.07; sx+=(pointerX-sx)*.06; sy+=(pointerY-sy)*.06;
-  $('#bar').style.width=(scroll*100)+'%';
-  let section='home'; if(scroll>=.166&&scroll<.333)section='about'; else if(scroll>=.333&&scroll<.5)section='work'; else if(scroll>=.5&&scroll<.64)section='skills'; else if(scroll>=.64&&scroll<.93)section='projects'; else if(scroll>=.93)section='contact'; setSection(section);
-  $('#stage').textContent=section==='projects'?'05 / PROJECT SYSTEM':section==='home'?'01 / DATA CORE':section.toUpperCase(); $('#readout').textContent=section==='projects'?'SCROLL / CRYSTALLIZE DATA NODES':`CORE / ${section.toUpperCase()}`;
-
-  const hover=smooth(clamp(Math.hypot(sx,sy))); const pulse=1+.035*Math.sin(t*.0025);
-  core.rotation.y+=(sx*.22-core.rotation.y)*.055; core.rotation.x+=(-sy*.16-core.rotation.x)*.055; root.rotation.y+=(sx*.06-root.rotation.y)*.04; root.rotation.x+=(-sy*.04-root.rotation.x)*.04;
-  core.scale.lerp(new THREE.Vector3(pulse,pulse,pulse),.05); shell.rotation.y+=.0018; shell.rotation.x+=.0007; inner.rotation.y-=.0026; inner.rotation.x+=.0013; cage.rotation.y-=.001; nucleus.scale.setScalar(1+.08*Math.sin(t*.006)); glow.scale.setScalar(1+.15*Math.sin(t*.004)); halo.scale.setScalar(1+.08*Math.sin(t*.003));
-  coreLight.intensity=16+hover*10+8*Math.sin(t*.003); cyanLight.intensity=22+hover*7; violetLight.intensity=17+hover*5;
-  ringsafe();
-
-  streams.forEach((s,j)=>{s.group.rotation.set(.48+j*.37,.2+j*.29,s.tilt); for(const q of s.particles){const u=q.userData.u; const a=u*Math.PI*2+q.userData.phase+t*.00055*(1+j*.12); const r=1.65+.16*Math.sin(a*3+s.phase); const x=Math.cos(a)*r; const y=Math.sin(a*2+s.phase)*(.55+.05*j); const z=Math.sin(a)*r*.62; q.position.set(x,y,z);}});
-  closeParticles.forEach((q,i)=>{const a=i/closeParticles.length*Math.PI*2+t*.001*(1+i%3); const r=1.1+(i%7)*.08; q.position.set(Math.cos(a)*r,Math.sin(a*1.8)*.55,Math.sin(a)*r*.7);});
-  field.children.forEach((p,i)=>{p.rotation.y+=.0003; p.position.x+=Math.sin(t*.0004+p.userData.phase)*.00025;});
-
-  // Project section only: tiny stream particles detach and crystallize into one larger node at a time.
-  const ps=projectState();
-  const inProjects=section==='projects';
-  projectNodes.forEach((n,i)=>{n.g.visible=inProjects; n.label.style.display=inProjects?'block':'none'; if(!inProjects){n.orb.material.opacity=0;n.ring.material.opacity=0;n.h.material.opacity=0;return;}
-    const local=ps.catIndex===0?ps.catProgress:0; // current implementation: seven data projects first; later categories become their own project sets.
-    const step=1/7; const amount=clamp((local-i*step)/step*1.7); const a=smooth(amount); const forming=clamp(amount*1.15);
-    const start=new THREE.Vector3(0,0,0); const pos=start.clone().lerp(n.target,a);
-    // Particles visibly detach from streams and gather around the forming node.
-    const gather=1-a; n.g.position.copy(pos); n.orb.material.opacity=.12+.88*a; n.ring.material.opacity=.08+.52*a; n.h.material.opacity=.015+.08*a; n.orb.scale.setScalar(.45+.95*a); n.ring.rotation.z+=.01; n.g.rotation.y+=.008;
-    // Text is born with the node, not after it.
-    placeLabel(n,a);
-    if(amount>0&&amount<1){for(let k=0;k<12;k++){const stream=streams[k%streams.length]; const q=stream.particles[(i*17+k*5)%stream.particles.length]; const target=n.g.position; q.position.lerp(target,.018+amount*.035); q.scale.setScalar(1+amount*2);}}
-  });
-  camera.position.x+=(sx*.42-camera.position.x)*.035; camera.position.y+=(-sy*.26-camera.position.y)*.035; camera.position.z+=(10.8-(inProjects?.45:0)-camera.position.z)*.035; camera.lookAt(0,0,0);
-  renderer.render(scene,camera);
-}
-function ringsafe(){/* intentionally small hook for future energy choreography */}
-requestAnimationFrame(frame);
-
-addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),smooth=t=>t*t*(3-2*t);
+const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(35,innerWidth/innerHeight,.1,100);camera.position.set(0,0,10.8);
+const renderer=new THREE.WebGLRenderer({canvas:$('#webgl'),antialias:true,alpha:false,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.28;scene.background=new THREE.Color(0x01040a);
+scene.add(new THREE.AmbientLight(0x526476,.38));const key=new THREE.DirectionalLight(0xd9f8ff,4.2);key.position.set(4,5,7);scene.add(key);const cyanLight=new THREE.PointLight(0x4fefff,22,10);cyanLight.position.set(2,2,3);scene.add(cyanLight);const violetLight=new THREE.PointLight(0x8d6cff,17,9);violetLight.position.set(-2,-2,2);scene.add(violetLight);const coreLight=new THREE.PointLight(0x8dfaff,16,5);coreLight.position.set(0,0,1.5);scene.add(coreLight);
+const root=new THREE.Group();scene.add(root);const core=new THREE.Group();root.add(core);
+const outer=new THREE.Mesh(new THREE.SphereGeometry(1.38,64,64),new THREE.MeshPhysicalMaterial({color:0x07141c,metalness:.62,roughness:.18,clearcoat:1,clearcoatRoughness:.06,emissive:0x052b39,emissiveIntensity:.55,transparent:true,opacity:.82}));core.add(outer);
+const shell=new THREE.Mesh(new THREE.IcosahedronGeometry(1.22,3),new THREE.MeshPhysicalMaterial({color:0x0b2632,metalness:.28,roughness:.2,clearcoat:1,emissive:0x064b5b,emissiveIntensity:.32,transparent:true,opacity:.42,side:THREE.DoubleSide}));core.add(shell);
+const inner=new THREE.Mesh(new THREE.IcosahedronGeometry(.78,2),new THREE.MeshPhysicalMaterial({color:0x17153a,metalness:.55,roughness:.1,clearcoat:1,emissive:0x4b1e9a,emissiveIntensity:1.05,transparent:true,opacity:.68}));core.add(inner);
+const cage=new THREE.Mesh(new THREE.IcosahedronGeometry(1.43,2),new THREE.MeshBasicMaterial({color:0x69efff,wireframe:true,transparent:true,opacity:.045,blending:THREE.AdditiveBlending,depthWrite:false}));core.add(cage);
+const nucleus=new THREE.Mesh(new THREE.SphereGeometry(.13,32,32),new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xd9ffff,emissiveIntensity:15,roughness:.02,metalness:.02}));core.add(nucleus);
+const glow=new THREE.Mesh(new THREE.SphereGeometry(.52,32,32),new THREE.MeshBasicMaterial({color:0x42eaff,transparent:true,opacity:.045,blending:THREE.AdditiveBlending,depthWrite:false}));core.add(glow);
+const halo=new THREE.Mesh(new THREE.SphereGeometry(.95,32,32),new THREE.MeshBasicMaterial({color:0x684fff,transparent:true,opacity:.012,blending:THREE.AdditiveBlending,depthWrite:false}));core.add(halo);
+const streams=[];for(let s=0;s<5;s++){const group=new THREE.Group();core.add(group);const particles=[];for(let i=0;i<90;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.008+(i%4)*.002,7,7),new THREE.MeshBasicMaterial({color:i%7===0?0xa789ff:0x61efff,transparent:true,opacity:.22+.55*(i%5)/5,blending:THREE.AdditiveBlending,depthWrite:false}));m.userData={u:i/90,phase:Math.random()*6.28};group.add(m);particles.push(m);}streams.push({group,particles,tilt:s*Math.PI/5,phase:s*.9});}
+const closeParticles=[];for(let i=0;i<44;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.009+(i%3)*.004,7,7),new THREE.MeshBasicMaterial({color:i%5===0?0xa789ff:0x6df4ff,transparent:true,opacity:.6,blending:THREE.AdditiveBlending,depthWrite:false}));core.add(m);closeParticles.push(m);}
+const field=new THREE.Group();scene.add(field);for(let i=0;i<240;i++){const p=new THREE.Mesh(new THREE.SphereGeometry(.004+(i%4)*.0015,6,6),new THREE.MeshBasicMaterial({color:i%11===0?0x8d75ff:0x52dce8,transparent:true,opacity:.06+(i%5)*.015}));p.position.set((Math.random()-.5)*16,(Math.random()-.5)*9,(Math.random()-.5)*9);p.userData={phase:Math.random()*6.28};field.add(p);}
+const nodeGroup=new THREE.Group();scene.add(nodeGroup);const positions=[[-3,1.55,.1],[3,1.15,-.1],[-3.1,-.15,.1],[3.05,-.35,.1],[-2.55,-1.7,-.1],[2.55,-1.65,.1],[0,-2.55,-.1]];const projectNodes=[];
+for(let i=0;i<7;i++){const g=new THREE.Group();g.visible=false;nodeGroup.add(g);const orb=new THREE.Mesh(new THREE.IcosahedronGeometry(.13,2),new THREE.MeshPhysicalMaterial({color:0x0e7885,emissive:0x31e9f4,emissiveIntensity:5,metalness:.5,roughness:.1,clearcoat:1,transparent:true,opacity:0}));g.add(orb);const ring=new THREE.Mesh(new THREE.TorusGeometry(.23,.006,7,80),new THREE.MeshBasicMaterial({color:0x63efff,transparent:true,opacity:0,blending:THREE.AdditiveBlending}));g.add(ring);const h=new THREE.Mesh(new THREE.SphereGeometry(.34,20,20),new THREE.MeshBasicMaterial({color:0x63efff,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false}));g.add(h);
+const gather=[];for(let k=0;k<20;k++){const q=new THREE.Mesh(new THREE.SphereGeometry(.012+(k%3)*.003,7,7),new THREE.MeshBasicMaterial({color:k%5===0?0xa789ff:0x61efff,transparent:true,opacity:.7,blending:THREE.AdditiveBlending,depthWrite:false}));q.userData={a:k/20*6.28,r:1.5+.35*(k%5)/5,seed:Math.random()*6.28};g.add(q);gather.push(q);}
+const p=categories[0].projects[i];const label=document.createElement('div');label.className='project-label';label.innerHTML=`<div class="k">${p[1]} / DATA ANALYSIS</div><h3>${p[0]}</h3><div class="d">${p[2]}</div><div class="s">${p[3]}</div>`;$('#labels').appendChild(label);projectNodes.push({g,orb,ring,h,gather,label,target:new THREE.Vector3(...positions[i]),index:i});}
+let pointerX=0,pointerY=0,sx=0,sy=0,targetScroll=0,scroll=0;addEventListener('pointermove',e=>{pointerX=(e.clientX/innerWidth-.5)*2;pointerY=(e.clientY/innerHeight-.5)*2});addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-innerHeight;targetScroll=max?scrollY/max:0},{passive:true});
+const sections=['home','about','work','skills','projects','contact'];$$('.nav').forEach(n=>n.addEventListener('click',()=>{const i=sections.indexOf(n.dataset.section);window.scrollTo({top:(document.documentElement.scrollHeight-innerHeight)*(i/5),behavior:'smooth'})}));
+function projectState(){const p=clamp((scroll-.64)/.29);const dataPortion=.70; if(p<dataPortion)return {category:0,progress:p/dataPortion};const rest=p-dataPortion;const slot=rest/.30*3;return {category:Math.min(3,1+Math.floor(slot)),progress:clamp(slot-Math.floor(slot))};}
+function placeLabel(n,a){const v=n.g.position.clone().project(camera);const x=(v.x*.5+.5)*innerWidth,y=(-v.y*.5+.5)*innerHeight;n.label.style.left=clamp(x+34,22,innerWidth-430)+'px';n.label.style.top=clamp(y-38,30,innerHeight-190)+'px';n.label.style.opacity=String(a);n.label.style.transform=`translate3d(${(1-a)*22}px,${(1-a)*8}px,0)`;n.label.style.clipPath=`inset(0 ${100-a*100}% 0 0)`;}
+function setSection(section){$$('.nav').forEach(n=>n.classList.toggle('active',n.dataset.section===section));['about','work','skills'].forEach(n=>$('#'+n).classList.toggle('active',section===n));$('#hero').classList.toggle('gone',section!=='home');}
+function frame(t){requestAnimationFrame(frame);scroll+=(targetScroll-scroll)*.07;sx+=(pointerX-sx)*.06;sy+=(pointerY-sy)*.06;$('#bar').style.width=scroll*100+'%';let section='home';if(scroll>=.166&&scroll<.333)section='about';else if(scroll>=.333&&scroll<.5)section='work';else if(scroll>=.5&&scroll<.64)section='skills';else if(scroll>=.64&&scroll<.93)section='projects';else if(scroll>=.93)section='contact';setSection(section);
+const ps=projectState();if(section==='projects'){const c=categories[ps.category];$('#stage').textContent=c.kicker;$('#readout').textContent=c.projects.length?`SCROLL / CRYSTALLIZE ${c.name}`:`SCROLL / ${c.name} / MORE TO COME`;}else{$('#stage').textContent=section==='home'?'01 / DATA CORE':section.toUpperCase();$('#readout').textContent=`CORE / ${section.toUpperCase()}`;}
+const hover=clamp(Math.hypot(sx,sy));const pulse=1+.035*Math.sin(t*.0025);core.rotation.y+=(sx*.22-core.rotation.y)*.055;core.rotation.x+=(-sy*.16-core.rotation.x)*.055;root.rotation.y+=(sx*.06-root.rotation.y)*.04;root.rotation.x+=(-sy*.04-root.rotation.x)*.04;core.scale.lerp(new THREE.Vector3(pulse,pulse,pulse),.05);shell.rotation.y+=.0018;shell.rotation.x+=.0007;inner.rotation.y-=.0026;inner.rotation.x+=.0013;cage.rotation.y-=.001;nucleus.scale.setScalar(1+.08*Math.sin(t*.006));glow.scale.setScalar(1+.15*Math.sin(t*.004));halo.scale.setScalar(1+.08*Math.sin(t*.003));coreLight.intensity=16+hover*10+8*Math.sin(t*.003);cyanLight.intensity=22+hover*7;violetLight.intensity=17+hover*5;
+streams.forEach((s,j)=>{s.group.rotation.set(.48+j*.37,.2+j*.29,s.tilt);for(const q of s.particles){const a=q.userData.u*6.283+q.userData.phase+t*.00055*(1+j*.12);const r=1.65+.16*Math.sin(a*3+s.phase);q.position.set(Math.cos(a)*r,Math.sin(a*2+s.phase)*(.55+.05*j),Math.sin(a)*r*.62);}});closeParticles.forEach((q,i)=>{const a=i/closeParticles.length*6.283+t*.001*(1+i%3),r=1.1+(i%7)*.08;q.position.set(Math.cos(a)*r,Math.sin(a*1.8)*.55,Math.sin(a)*r*.7);});field.children.forEach(p=>{p.rotation.y+=.0003;p.position.x+=Math.sin(t*.0004+p.userData.phase)*.00025;});
+const inProjects=section==='projects';projectNodes.forEach((n,i)=>{n.g.visible=inProjects;n.label.style.display=inProjects?'block':'none';if(!inProjects){n.orb.material.opacity=0;n.ring.material.opacity=0;n.h.material.opacity=0;return;}if(ps.category!==0){n.g.visible=false;n.label.style.display='none';return;}const step=1/7;const amount=clamp((ps.progress-i*step)/step*1.45);const a=smooth(amount);n.g.position.lerpVectors(new THREE.Vector3(0,0,0),n.target,a);n.orb.material.opacity=.12+.88*a;n.ring.material.opacity=.08+.52*a;n.h.material.opacity=.015+.08*a;n.orb.scale.setScalar(.45+.95*a);n.g.rotation.y+=.008;n.ring.rotation.z+=.01;placeLabel(n,a);
+const gatherStrength=smooth(clamp((amount-.12)/.88));n.gather.forEach((q,k)=>{const ang=q.userData.a+t*.0012*(1+k%3);const r=q.userData.r*(1-gatherStrength)+.32*gatherStrength;q.position.set(Math.cos(ang)*r,Math.sin(ang*1.25)*r*.65,Math.sin(ang)*r*.62);q.material.opacity=.12+.7*gatherStrength;});});
+// A subtle pull in the project section makes the camera feel connected to the forming node without destroying the approved composition.
+camera.position.x+=(sx*.42-camera.position.x)*.035;camera.position.y+=(-sy*.26-camera.position.y)*.035;camera.position.z+=(10.8-(inProjects?.45:0)-camera.position.z)*.035;camera.lookAt(0,0,0);renderer.render(scene,camera);}
+requestAnimationFrame(frame);addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
